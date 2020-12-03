@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Twitter Search Application</title>
+	<link rel="stylesheet" href="style/style.css" />
+</head>
+<body>
+
+	<header>
+		<div class="container">
+		<div id="brandname">
+
+		</div>
+		<h1>Data Engineering II - Final Project</h1>
+		<h2>Twitter Search application</h2>
+
+
+	</div>
+	</header>
+
+	<div class="ml-container">
+
+		<form action="{{ url_for('predict')}}" method="POST">
+		<p>Enter Your Request Here</p>
+
+		<textarea name="message" rows="1" cols="30"></textarea>
+		<br/>
+
+		<input type="submit" class="btn-info" value="Confirm">
+
+	</form>
+
+	</div>
+
+</body>
+</html>
