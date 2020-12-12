@@ -62,9 +62,21 @@ input{
 	display: block;
     margin-left: auto;
     margin-right: auto;
+		border-radius: 5px;
 
 }
 
+.submit{
+	cursor:pointer;
+	background:#03A9F4;#35434a;
+	color:#fff;
+	padding: 12px 18px;
+}
+
+.submit:active {
+	color:black;
+  background-color: white;
+}
 
 .btn-info {background-color: #2196F3;
 	height:40px;
@@ -78,4 +90,23 @@ input{
     padding: 20px;
     width: 200px;
     height: 150px;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+
+}
+
+th, td {
+  text-align: left;
+  padding: 8px;
+
+}
+
+tr:nth-child(even){background-color: white}
+
+th {
+  background-color: #03A9F4;#35434a;
+  color: white;
 }
