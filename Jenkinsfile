@@ -20,6 +20,7 @@ pipeline{
     }
     stage('Docker shutdown'){
       steps{
+	sh 'pip install -r requirements.txt'
         sh 'docker-compose down'
       }
     }
