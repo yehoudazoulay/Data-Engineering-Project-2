@@ -15,13 +15,18 @@ pipeline{
    
     stage('Testing'){
       steps{
-	sh 'python3 -m pip install -r requirements.txt'
+	
         sh 'python3 test_app.py'
       }
     }
+    stage('Docker Test Env'){
+      steps{
+	sh 'python3 -m pip install -r requirements.txt'
+      }
+    }
+
     stage('Docker shutdown'){
       steps{
-	
         sh 'docker-compose down'
       }
     }
