@@ -12,7 +12,8 @@ And then :
 sudo docker-compose up
 ```
 
-The program will be running on port 5000
+The program will be running on port 5000 at this adress :
+
 http://localhost:5000
 
 Then u can close the program :
