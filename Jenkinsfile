@@ -1,38 +1,56 @@
+def groovyfile
 pipeline{
   agent any
   stages {
+
+     stage ('Build Scripe'){
+	  	steps{
+			script{
+				 def filename = 'jenkins.' + env.BRANCH_NAME + '.groovy'
+				 groovyfile = load filename
+			}
+		}
+	  }
+
+
     stage('Build Flask app'){
       steps{
-        sh 'docker-compose build'
+        script{
+          groovyfile.build_app()
+        }
       }
     }
-    
-    stage('Run Flask app'){
-      steps{
-        sh 'docker-compose up -d'
-      }
-    }
-
 
     stage('Docker Test Env'){
-      steps{
-	sh 'python3 -m pip install -r requirements.txt'
+ 	steps{
+        script{
+          groovyfile.build_env()
+        }
       }
     }
-
 
     stage('Testing'){
       steps{
-	
-        sh 'python3 test_app.py'
+        script{
+          groovyfile.test_app()
+        }
       }
     }
-
 
     stage('Docker shutdown'){
       steps{
-        sh 'docker-compose down'
+        script{
+          groovyfile.down_app()
+        }
       }
     }
+
+    stage('creating release branch'){
+        steps{
+	script{
+          groovyfile.release_app()
+		}
+        }
+      }
   }
 }
