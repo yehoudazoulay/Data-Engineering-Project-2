@@ -1,0 +1,5 @@
+flask
+pandas
+elasticsearch
+datetime
+requests

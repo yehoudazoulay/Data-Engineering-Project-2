@@ -1,0 +1,1 @@
+{"mappings": {"properties": {"text": {"type": "text","fields": {"english": {"type": "text","analyzer": "english"}}}}}}
