@@ -21,6 +21,7 @@ def release_app(){
 }
 
 def live_app(){
+  input message: 'Do we go live ? (Click "Proceed" to continue)'
   echo 'merge into master'
 }
 
