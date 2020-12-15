@@ -15,14 +15,16 @@ from prometheus_client import Histogram
 #END PROMETHEUS MONITORING
 
 #PROMETHEUS MONITORING
-REQUESTS = Counter('twitter_flask_app_requests_total','How many times the Twitter application has been accessed ?')
-EXCEPTIONS = Counter('twitter_flask_app_exceptions_total','How many times the Twitter application issued an exception ?')
-SEARCH = Counter('twitter_flask_app_nb_search','How many search in the Twitter application have been made ?')
+REQUESTS = Counter('twitter_requests_total','How many times the Twitter application has been accessed ?')
+EXCEPTIONS = Counter('twitter_exceptions_total','How many times the Twitter application issued an exception ?')
+SEARCH = Counter('twitter_nb_search','How many search in the Twitter application have been made ?')
 
-INPROGRESS = Gauge('twitter_flask_app_inprogress_gauge','How many requests to the Twitter application are currently in progress ?')
-LAST = Gauge('twitter_flask_app_last_accessed_gauge','When was the Twitter application last accessed ?')
+INPROGRESS = Gauge('twitter_inprogress_gauge','How many requests to the Twitter application are currently in progress ?')
+LAST = Gauge('twitter_last_accessed_gauge','When was the Twitter application last accessed ?')
 
-LATENCY = Summary('twitter_flask_app_latency','Time needed for a request ?')
+LATENCY = Summary('twitter_latency','Time needed for a request ?')
+LATENCY_TWEET = Summary('twitter_latency_tweet','Time needed to make a search ?')
+
 
 #LATENCY_HIS = Histogram('twitter_flask_app_latency_hist','Time needed for a request ?')
 LATENCY_HIS = Histogram('twitter_flask_app_latency_hist','Time needed for a request ?', buckets=[0.0001,0.001,0.01,0.1,1.0,1.5,2.0,3.0])
@@ -33,6 +35,7 @@ app.secret_key = 'my_secret_key'
 
 #return the best match
 def submit_txt(es, index, txt):
+	start=time.time()
 	query=es.search(index=index,
 		 body={
 	 "query": {
@@ -51,8 +54,12 @@ def submit_txt(es, index, txt):
             flash(el['_source']['text'])
             flash(el['_score'])
 	#PROMETHEUS MONITORING
+	INPROGRESS.dec()
 	#INPROGRESS.dec()
 	SEARCH.inc()
+	lat = time.time()
+	LATENCY_TWEET.observe(lat - start)
+	LATENCY_HIS.observe(lat - start)
 	#END PROMETHEUS MONITORING
 	return render_template('interface.html')
 
@@ -81,14 +88,11 @@ def ingest_data(es, index, data):
 def index():
 	#PROMETHEUS MONITORING
 	REQUESTS.inc()
-	with EXCEPTIONS.count_exceptions():
-		if random.random() < 0.2 :
-			raise Exception
 
 	INPROGRESS.inc()
-	LAST.set(time.time())
+	#LAST.set(time.time())
 	start = time.time()
-	time.sleep(5)
+	#time.sleep(5)
 
 	#END PROMETHEUS MONITORING
 	if request.method == 'POST':
@@ -97,10 +101,10 @@ def index():
 			return submit_txt(es, index, details['txt'])
 
 	#PROMETHEUS MONITORING
-	INPROGRESS.dec()
 	lat = time.time()
 	LATENCY.observe(lat - start)
 	LATENCY_HIS.observe(lat - start)
+	INPROGRESS.dec()
 	#END PROMETHEUS MONITORING
 	return render_template('interface.html')
 
