@@ -81,14 +81,11 @@ def ingest_data(es, index, data):
 def index():
 	#PROMETHEUS MONITORING
 	REQUESTS.inc()
-	with EXCEPTIONS.count_exceptions():
-		if random.random() < 0.2 :
-			raise Exception
 
 	INPROGRESS.inc()
 	LAST.set(time.time())
 	start = time.time()
-	time.sleep(5)
+	#time.sleep(5)
 
 	#END PROMETHEUS MONITORING
 	if request.method == 'POST':
