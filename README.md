@@ -1,6 +1,6 @@
 # Tweets similarity program.
 
-The program uses Elastich search engine to do the similarity scoring and it is able to process more than 20 000 queries per minute.
+The program uses Elastich search engine to do the similarity scoring and it is able to process more than <b>20 000 queries per minute</b>.
 
 To start the program run :
 
@@ -18,7 +18,7 @@ The program will be running on port 5000 at this adress :
 
 http://localhost:5000
 
-Then u can close the program :
+Then you can close the program :
 
 ```console
 sudo docker-compose down
