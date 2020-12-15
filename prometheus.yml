@@ -1,0 +1,19 @@
+# my global config
+global:
+  scrape_interval:     10s # Set the scrape interval to every 15 seconds. Default is every 1 minute.
+  evaluation_interval: 10s
+rule_files :
+  - rules.yml
+scrape_configs :
+  - job_name : 'tweets'
+    static_configs :
+    - targets :
+      - 'localhost:9090'
+  - job_name : 'node exporter'
+    static_configs :
+    - targets :
+      - 'localhost:9182'
+  - job_name : 'Twitter Flask App'
+    static_configs :
+    - targets :
+      - 'localhost:8010'

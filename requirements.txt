@@ -3,3 +3,4 @@ pandas
 elasticsearch
 datetime
 requests
+prometheus-client

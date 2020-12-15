@@ -20,12 +20,9 @@ services:
     restart: always
     ports:
       - "5000:5000"
+      - "8010:8010"
     networks:
       - elasticsearch
 networks:
   elasticsearch:
     driver: bridge
- 
-
-
-
