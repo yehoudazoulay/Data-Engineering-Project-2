@@ -79,16 +79,17 @@ class FlaskTests(unittest.TestCase):
 
 	def test_g_stress_test(self):
 		start=time.time()
-		n=50	
+		n=10	
 		params = {
-			'txt': "i love pizza",
+			'txt': "I love pizza",
 			"form_type": "submit_txt"
 		}
 		for i in range(n):
-			requests.post('http://localhost:5000', data=params)
-			
+			rep=requests.post('http://localhost:5000', data=params)
+			self.assertEqual(rep.status_code,200)
 		end=time.time()
 		print("Time to execute ",n," queries : ", end-start)
+		
 		self.assertGreater(60 , end-start)
 
 if __name__=='__main__':
