@@ -53,26 +53,6 @@ class FlaskTests(unittest.TestCase):
 	)
 		self.assertGreater(res['hits']['total']['value'] , 0)
 	
-	#stress test 1000 queries
-	def test_f_stress_test(self):
-		es = Elasticsearch(['http://localhost:9200/'], verify_certs=True)
-		start=time.time()
-		for i in range(1000):
-			res = es.search(index='tweets_trump', 
-			 body={
-		 "query": {
-		     "match": {
-			 "text.english": {
-			     "query": "i love pizza",
-			     }
-			 }
-		     },
-		 "size": 20
-		    }
-		)
-		end=time.time()
-		print(end-start)
-		self.assertGreater(60 , end-start)
 
 if __name__=='__main__':
 	unittest.main()
