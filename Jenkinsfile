@@ -52,5 +52,15 @@ pipeline{
 		}
         }
       }
+	  
+    stage('Lets go Live !!!'){
+        steps{
+	script{
+          groovyfile.live_app()
+		}
+        }
+      }
+	  
+	  
   }
 }
