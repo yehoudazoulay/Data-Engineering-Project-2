@@ -5,12 +5,6 @@ The program uses Elastich search engine to do the similarity scoring and it is a
 To start the program run :
 
 ```console
-sudo docker-compose build
-```
-
-And then :
-
-```console
 sudo docker-compose up
 ```
 
