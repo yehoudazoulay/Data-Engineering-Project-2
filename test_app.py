@@ -57,7 +57,7 @@ class FlaskTests(unittest.TestCase):
 	def test_f_stress_test(self):
 		es = Elasticsearch(['http://localhost:9200/'], verify_certs=True)
 		start=time.time()
-		for i in range(1000):
+		for i in range(10):
 			res = es.search(index='tweets_trump', 
 			 body={
 		 "query": {
@@ -72,6 +72,23 @@ class FlaskTests(unittest.TestCase):
 		)
 		end=time.time()
 		print(end-start)
+		self.assertGreater(60 , end-start)
+		
+		
+		
+
+	def test_g_stress_test(self):
+		start=time.time()
+		n=50	
+		params = {
+			'txt': "i love pizza",
+			"form_type": "submit_txt"
+		}
+		for i in range(n):
+			requests.post('http://localhost:5000', data=params)
+			
+		end=time.time()
+		print("Time to execute ",n," queries : ", end-start)
 		self.assertGreater(60 , end-start)
 
 if __name__=='__main__':
