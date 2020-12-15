@@ -1,6 +1,6 @@
 # Tweets similarity program.
 
-The program uses Elastich search engine to do the similarity scoring and it is able to process more than <b>20 000 queries per minute</b>.
+The program uses Elastich search engine to do the similarity scoring and it is able to process more than <b>10 000 queries per minute</b>.
 
 To start the program run :
 
