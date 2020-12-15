@@ -7,7 +7,7 @@ def build_env(){
 }
 
 def test_app(){
-  sh 'python test_app.py'
+  sh 'python3 test_app.py'
 }
 
 def down_app(){
