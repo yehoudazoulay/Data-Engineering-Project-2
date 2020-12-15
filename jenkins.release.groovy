@@ -17,10 +17,11 @@ def down_app(){
 }
 
 def release_app(){
-  echo 'branch into release'
+  
 }
 
 def live_app(){
+  echo 'merge into master'
 }
 
 return this
