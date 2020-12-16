@@ -4,3 +4,18 @@ groups:
       - alert : InstanceDown
         expr : up == 0
         for: 2s
+      - alert: Disk Usage more than 85%
+        expr: (windows_logical_disk_free_bytes / windows_logical_disk_size_bytes) > 85
+        for: 10m
+        labels:
+          severity: high
+      - alert: CPU Usage more than 80%
+        expr: 100 - (avg by (instance) (rate(windows_cpu_time_total{mode="idle"}[2m])) * 100) > 80
+        for: 2m
+        labels:
+          severity: warning
+      - alert: Lot of Twitter App exceptions
+        expr: (twitter_exceptions_total > 5)
+        for: 2m
+        labels:
+          severity: warning

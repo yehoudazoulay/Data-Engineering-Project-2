@@ -27,7 +27,7 @@ LATENCY_TWEET = Summary('twitter_latency_tweet','Time needed to make a search ?'
 
 
 #LATENCY_HIS = Histogram('twitter_flask_app_latency_hist','Time needed for a request ?')
-LATENCY_HIS = Histogram('twitter_flask_app_latency_hist','Time needed for a request ?', buckets=[0.0001,0.001,0.01,0.1,1.0,1.5,2.0,3.0])
+LATENCY_HIS = Histogram('twitter_latency_hist','Time needed for a request ?', buckets=[0.0001,0.001,0.01,0.1,1.0,1.5,2.0,3.0])
 #END PROMETHEUS MONITORING
 
 app = Flask(__name__)
@@ -59,7 +59,7 @@ def submit_txt(es, index, txt):
 	SEARCH.inc()
 	lat = time.time()
 	LATENCY_TWEET.observe(lat - start)
-	LATENCY_HIS.observe(lat - start)
+	#LATENCY_HIS.observe(lat - start)
 	#END PROMETHEUS MONITORING
 	return render_template('interface.html')
 
